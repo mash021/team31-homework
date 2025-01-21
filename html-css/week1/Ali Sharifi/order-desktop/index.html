@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Form</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="payment-container">
+    <div class="order-summary">
+      <h2>Order Summary</h2>
+
+      <div class="price-details">
+        <div class="line">
+            <p class="total">Total</p>
+            <p class="price">$333 / month</p>
+        </div>
+        <hr class="divider">
+        <div class="line">
+            <p class="total">Total</p>
+            <p class="price">$100</p>
+        </div>
+        
+       
+        
+      </div>
+    </div>
+    <div class="payment-method">
+      <h3>Payment Method</h3>
+      <div class="method-options">
+        <div class="method credit active">
+          <img src="src/visa-logo-png-2028.png" alt="Credit/Debit">
+          <p class="mute">Credit / Debit</p>
+        </div>
+        <div class="method paypal">
+          <img src="src/PayPal Grey.png" alt="PayPal">
+          <p class="mute">PayPal</p>
+        </div>
+      </div>
+    </div>
+    <div class="card-info">
+        <h3>Card Info</h3>
+        <form class="grid-form">
+          <div class="form-group full-width">
+            <label class="mute" for="card-number">Card Number</label>
+            <input
+              type="text"
+              id="card-number"
+              placeholder="1234 1234 1234 1234"
+            />
+          </div>
+          <div class="form-group">
+            <label class="mute" for="expiry-date">Expiry Date</label>
+            <input type="text" id="expiry-date" placeholder="MM/YY" />
+          </div>
+          <div class="form-group">
+            <label class="mute" for="cvv">Security Code</label>
+            <input type="text" id="cvv" placeholder="CVV" />
+          </div>
+          <button type="submit" class="buy-now">Buy Now</button>
+        </form>
+      </div>
+    <div class="help">
+      <a href="#" >Need Help?</a>
+    </div>
+  </div>
+</body>
+</html>
