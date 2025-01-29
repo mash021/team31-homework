@@ -21,7 +21,6 @@ body {
 }
 
 .order-summary {
-  text-align: left;
   background: linear-gradient(to right, #ff7e5f, #ff6c84);
   color: white;
   border-radius: 10px;
@@ -34,7 +33,6 @@ body {
 }
 
 .price-details {
-  width: 100%;
   max-width: 600px;
   margin: 20px auto;
   font-family: Arial, sans-serif;
@@ -48,7 +46,6 @@ body {
 }
 
 .total {
-  font-size: 16px;
   font-weight: bold;
   color: white;
 }
@@ -90,7 +87,7 @@ body {
   margin-top: 10px;
 }
 
-.method {
+.card-method {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -103,16 +100,16 @@ body {
   width: 40%;
 }
 
-.method.active {
+.card-method.active {
   border-color: #ff6c84;
 }
 
-.method img {
+.card-method img {
   max-width: 100px;
   object-fit: cover;
 }
 
-.method p {
+.card-method p {
   margin: 5px 0 0;
 }
 
@@ -127,7 +124,7 @@ body {
 
 .grid-form {
   display: grid;
-  grid-template-columns:  1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 10px;
 }
 
@@ -149,11 +146,10 @@ body {
   font-size: 14px;
 }
 
-.buy-now {
+.primary-button {
   grid-column: span 4;
   justify-self: center;
   padding: 15px;
-  width: 40%;
   background: linear-gradient(to right, #ff7e5f, #ff6c84);
   color: white;
   border: none;
@@ -164,7 +160,8 @@ body {
   justify-content: center;
 }
 
-.buy-now:hover {
+.primary-button :hover,
+.primary-button :focus-visible {
   background: linear-gradient(to right, #ff6c84, #ff7e5f);
 }
 
@@ -177,7 +174,6 @@ body {
   color: #ff6c84;
   text-decoration: none;
 }
-
 
 /* Media querry */
 
@@ -198,7 +194,6 @@ body {
     width: 50%;
   }
   .grid-form {
-    
     display: inline-block;
   }
 }
@@ -244,4 +239,3 @@ body {
     transition: background 0.3s;
   }
 }
-
