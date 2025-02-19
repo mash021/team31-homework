@@ -3,7 +3,7 @@ function getFullname(firstname, lastname, useFormalName = false, gender = "") {
   firstname = firstname.trim();
   lastname = lastname.trim();
 
-  if (!firstname && !lastname) {
+  if (!firstname || !lastname) {
     return "Please provide a name";
   }
 
