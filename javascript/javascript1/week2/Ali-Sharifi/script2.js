@@ -1,20 +1,20 @@
 //Formal fullname
-function getFullname(firstname, lastname, useFormalName = false, gender = "") {
-  firstname = firstname.trim();
-  lastname = lastname.trim();
+function getFullname(FirstName, LastName, useFormalName = false, gender = "") {
+  FirstName = FirstName.trim();
+  LastName = LastName.trim();
 
-  if (!firstname || !lastname) {
+  if (!firstname && !lastname) {
     return "Please provide a name";
   }
 
   if (useFormalName) {
     if (gender.toLowerCase() === "female") {
-      return `Lady ${firstname} ${lastname}`.trim();
+      return `Lady ${FirstName} ${LastName}`;
     } else {
-      return `Lord ${firstname} ${lastname}`.trim();
+      return `Lord ${FirstName} ${LastName}`;
     }
   } else {
-    return `${firstname} ${lastname}`.trim();
+    return `${FirstName} ${LastName}`;
   }
 }
 //Event application
@@ -94,7 +94,9 @@ const boughtCandyPrices = [];
 const amountToSpend = Math.random() * 100;
 
 function addCandy(candyType, weight) {
+  candyType = candyType.toLowerCase();
   let pricePerGram;
+
   if (candyType === "sweet") {
     pricePerGram = 0.5;
   } else if (candyType === "chocolate") {
@@ -103,24 +105,32 @@ function addCandy(candyType, weight) {
     pricePerGram = 1.1;
   } else if (candyType === "chewing-gum") {
     pricePerGram = 0.03;
-  } else { return "Please, provide a valid candy type" }
+  }
   boughtCandyPrices.push(pricePerGram * weight);
 }
 
-function canBuyMoreCandy() {
-  let totalPrice = 0;
-  for (let i = 0; i < boughtCandyPrices.length; i++) {
-    totalPrice += boughtCandyPrices[i];
-  }
-  return totalPrice < amountToSpend;
+function getTotalCandyPrice() {
+  return boughtCandyPrices.reduce((sum, price) => sum + price, 0);
 }
 
-addCandy("sweet", 20);
-addCandy("chocolate", 30);
+function canBuyMoreCandy() {
+  return getTotalCandyPrice() < amountToSpend;
+}
+
+addCandy("Sweet", 20);
+addCandy("CHOCOLATE", 30);
 addCandy("toffee", 10);
 
+const totalPrice = getTotalCandyPrice();
+console.log(`Total Price: ${totalPrice}`);
+console.log(`Amount to Spend: ${amountToSpend}`);
+
 if (canBuyMoreCandy()) {
-  console.log("You can buy more, so please do!");
+  console.log(
+    `You can buy more, so please do! (Total Price: ${getTotalCandyPrice()} / Budget: ${amountToSpend})`
+  );
 } else {
-  console.log("Enough candy for you!");
+  console.log(
+    `Enough candy for you! (Total Price: ${getTotalCandyPrice()} / Budget: ${amountToSpend})`
+  );
 }
