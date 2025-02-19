@@ -103,7 +103,7 @@ function addCandy(candyType, weight) {
     pricePerGram = 1.1;
   } else if (candyType === "chewing-gum") {
     pricePerGram = 0.03;
-  }
+  } else { return "Please, provide a valid candy type" }
   boughtCandyPrices.push(pricePerGram * weight);
 }
 
