@@ -152,7 +152,7 @@ function addActivity(activity, duration, date = new Date().toLocaleDateString())
 }
 
 function showStatus() {
-    if (activities.length === 0) {
+    if (!activities.length) {
         console.log("You haven't added any activities yet. Try adding one!");
         return;
     }
