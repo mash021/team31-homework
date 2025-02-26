@@ -12,3 +12,18 @@ function countVowels(str) {
 }
 
 console.log(countVowels("Hack your future is awesome"));
+
+
+//digit dogits
+function squareDigits(num) {
+    return parseInt(
+        num.toString()
+            .split('')
+            .map(digit => Math.pow(parseInt(digit), 2))
+            .join(''),
+        10
+    );
+}
+
+console.log(squareDigits(9349)); 
+console.log(squareDigits(865)); 
