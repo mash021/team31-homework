@@ -1,36 +1,32 @@
-function countVowels(str) {
-  const vowels = new Set(["a", "e", "i", "o", "u"]);
-  let count = 0;
-
-  str.split("").forEach((char) => {
-    if (vowels.has(char)) {
-      count++;
-    }
-  });
-
-  return `The number of vowels in the given text is: ${count}`;
+// 6kyu Vowel Count
+function encode(string) {
+    return string.replace(/[aeiou]/g, char => ({ 'a': '1', 'e': '2', 'i': '3', 'o': '4', 'u': '5' }[char]));
 }
 
-console.log(countVowels("Hack your future is awesome"));
+function decode(string) {
+    return string.replace(/[1-5]/g, num => ({ '1': 'a', '2': 'e', '3': 'i', '4': 'o', '5': 'u' }[num]));
+}
 
+console.log(encode("HYF is the Best")); 
 
 //Digit*Digit
 function squareDigits(num) {
-    return parseInt(
-        num.toString()
-            .split('')
-            .map(digit => Math.pow(parseInt(digit), 2))
-            .join(''),
-        10
-    );
+  return parseInt(
+    num
+      .toString()
+      .split("")
+      .map((digit) => Math.pow(parseInt(digit), 2))
+      .join(""),
+    10
+  );
 }
 
-console.log(squareDigits(9349)); 
-console.log(squareDigits(865)); 
+console.log(squareDigits(9349));
+console.log(squareDigits(865));
 
 //7kyu Highest and Lowest
 function minMax(arr) {
-    return [Math.min(...arr), Math.max(...arr)];
+  return [Math.min(...arr), Math.max(...arr)];
 }
 
 console.log(minMax([1, 2, 3, 4, 5])); // [1, 5]
