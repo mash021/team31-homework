@@ -1,13 +1,8 @@
 // 6kyu Vowel Count
-function encode(string) {
-    return string.replace(/[aeiou]/g, char => ({ 'a': '1', 'e': '2', 'i': '3', 'o': '4', 'u': '5' }[char]));
+function countVowels(str) {
+  return [...str].filter((char) => "aeiou".includes(char)).length;
 }
-
-function decode(string) {
-    return string.replace(/[1-5]/g, num => ({ '1': 'a', '2': 'e', '3': 'i', '4': 'o', '5': 'u' }[num]));
-}
-
-console.log(encode("HYF is the Best")); 
+console.log(countVowels("hello world")); // Output: 3
 
 //Digit*Digit
 function squareDigits(num) {
