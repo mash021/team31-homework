@@ -7,10 +7,10 @@
 - "Read More" button for detailed information
 - Main actors display in modal view
 
----
+
 
 ### Rating and Comments System
-
+---
 - Movie rating capability (1 to 5 stars)
 - Ratings stored in browser's localStorage
 - Comment submission for each movie
