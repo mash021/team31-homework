@@ -48,7 +48,7 @@ function initializeMovies() {
     const movieCard = document.createElement("div");
     movieCard.classList.add("movie-card");
     /* Notice 1 :(
-    Since I didn’t have a database and had to store the data in the browser, I had to add the elements manually. Otherwise, the data could have been added in the backend, resulting in less code. I apologize for this.
+    Since I didn't have a database and had to store the data in the browser, I had to add the elements manually. Otherwise, the data could have been added in the backend, resulting in less code. I apologize for this.
     */
     movieCard.innerHTML = `
       <img src="${movie.poster_url}" alt="${
@@ -358,3 +358,78 @@ document.head.appendChild(style);
 
 // Initialize the page
 initializeMovies();
+
+function searchMoviesByTitle(keyword) {
+  // Convert keyword to lowercase for better search
+  const searchTerm = keyword.toLowerCase();
+
+  // Filter movies based on keyword
+  const filteredMovies = movies.filter((movie) =>
+    movie.title.toLowerCase().includes(searchTerm)
+  );
+
+  return filteredMovies;
+}
+
+function renderMovies(moviesToRender) {
+  const container = document.querySelector(".container");
+  container.innerHTML = ""; // Clear current movies
+
+  if (moviesToRender.length === 0) {
+    container.innerHTML = '<div class="no-results">No movies found</div>';
+    return;
+  }
+
+  moviesToRender.forEach((movie) => {
+    const movieCard = document.createElement("div");
+    movieCard.classList.add("movie-card");
+    movieCard.innerHTML = `
+            <img src="${movie.poster_url}" alt="${
+      movie.title
+    } Poster" onerror="this.src='https://via.placeholder.com/600x900?text=No+Image+Available'" />
+            <div class="movie-info">
+                <h2>${movie.title}</h2>
+                <p>${movie.description}</p>
+                <div class="movie-brief">
+                    <p><strong>Year:</strong> ${movie.movie_year}</p>
+                    <p><strong>Director:</strong> ${movie.director}</p>
+                </div>
+                <div class="movie-rating">
+                    <p><strong>Rating:</strong></p>
+                    <div class="stars-display">
+                        ${displayRatingStars(getMovieRating(movie.id))}
+                    </div>
+                </div>
+                <button class="read-more-btn" data-movie-id="${
+                  movie.id
+                }">Read More</button>
+            </div>
+        `;
+    container.appendChild(movieCard);
+  });
+
+  // Re-initialize event listeners for the new cards
+  setupReadMoreListeners();
+}
+
+// Example usage of search function
+const searchInput = document.querySelector("#searchInput");
+searchInput.addEventListener("input", (e) => {
+  const keyword = e.target.value;
+  const searchResults = searchMoviesByTitle(keyword);
+  // Display search results
+  renderMovies(searchResults);
+});
+
+// Add some CSS for no results message
+const noResultsStyle = document.createElement("style");
+noResultsStyle.textContent = `
+    .no-results {
+        text-align: center;
+        padding: 2rem;
+        color: var(--text-light);
+        font-size: 1.2rem;
+        grid-column: 1 / -1;
+    }
+`;
+document.head.appendChild(noResultsStyle);
