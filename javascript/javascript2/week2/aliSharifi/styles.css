@@ -218,6 +218,7 @@ h6 {
   height: 100%;
   transition: all 0.3s ease;
   position: relative;
+  animation: fadeIn 0.5s ease forwards;
 }
 
 .movie-card:hover {
@@ -638,7 +639,7 @@ h6 {
   opacity: 0.3;
 }
 
-/* Search and Sort Container */
+/* Search and Sort Container Styles */
 .search-sort-container {
   display: flex;
   justify-content: center;
@@ -649,6 +650,7 @@ h6 {
   padding: 0 1.5rem;
 }
 
+/* Search Input Styles */
 .search-wrapper {
   flex: 1;
   max-width: 600px;
@@ -657,6 +659,7 @@ h6 {
   gap: 1.5rem;
 }
 
+/* Sort Section Styles */
 .sort-container {
   display: flex;
   align-items: center;
@@ -664,7 +667,7 @@ h6 {
   min-width: 300px;
 }
 
-/* Update responsive design */
+/* Responsive Design */
 @media (max-width: 768px) {
   .search-sort-container {
     flex-direction: column;
@@ -720,4 +723,29 @@ h6 {
 
 .stars-display i.active {
   color: #ffd700;
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* No Results Message Styles */
+.no-results {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-light);
+  font-size: 1.2rem;
+  grid-column: 1 / -1;
+  background-color: rgba(126, 48, 225, 0.1);
+  border-radius: 8px;
+  margin: 2rem auto;
+  max-width: 600px;
 }

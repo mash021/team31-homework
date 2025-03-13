@@ -47,9 +47,7 @@ function initializeMovies() {
     const movieRating = getMovieRating(movie.id);
     const movieCard = document.createElement("div");
     movieCard.classList.add("movie-card");
-    /* Notice 1 :(
-    Since I didn't have a database and had to store the data in the browser, I had to add the elements manually. Otherwise, the data could have been added in the backend, resulting in less code. I apologize for this.
-    */
+
     movieCard.innerHTML = `
       <img src="${movie.poster_url}" alt="${
       movie.title
@@ -246,9 +244,6 @@ function clearStars(stars) {
   stars.forEach((star) => star.classList.remove("active"));
 }
 
-// Initialize the page when DOM is loaded
-document.addEventListener("DOMContentLoaded", initializeMovies);
-
 // Function to save comments to localStorage
 function saveComment(movieId, comment) {
   let comments =
@@ -259,106 +254,33 @@ function saveComment(movieId, comment) {
 
 // Function to sort movies
 function sortMovies(criteria) {
-  const container = document.querySelector(".container");
-  const movieCards = Array.from(container.children);
+  const sortOptions = {
+    name: (a, b) => a.title.localeCompare(b.title),
+    "name-desc": (a, b) => b.title.localeCompare(a.title),
+    year: (a, b) => a.movie_year - b.movie_year,
+    "year-desc": (a, b) => b.movie_year - a.movie_year,
+    director: (a, b) => a.director.localeCompare(b.director),
+  };
 
-  movieCards.sort((a, b) => {
-    switch (criteria) {
-      case "name":
-        const titleA = a.querySelector("h2").textContent.toLowerCase();
-        const titleB = b.querySelector("h2").textContent.toLowerCase();
-        return titleA.localeCompare(titleB);
-
-      case "name-desc":
-        const titleDescA = a.querySelector("h2").textContent.toLowerCase();
-        const titleDescB = b.querySelector("h2").textContent.toLowerCase();
-        return titleDescB.localeCompare(titleDescA);
-
-      // I learn about  regular Expression
-      // find https://regex-generator.olafneumann.org for this style
-      case "year":
-        const yearA = parseInt(
-          a
-            .querySelector(".movie-brief p:first-child")
-            .textContent.match(/\d{4}/)
-        );
-        const yearB = parseInt(
-          b
-            .querySelector(".movie-brief p:first-child")
-            .textContent.match(/\d{4}/)
-        );
-        return yearA - yearB;
-
-      case "year-desc":
-        const yearDescA = parseInt(
-          a
-            .querySelector(".movie-brief p:first-child")
-            .textContent.match(/\d{4}/)
-        );
-        const yearDescB = parseInt(
-          b
-            .querySelector(".movie-brief p:first-child")
-            .textContent.match(/\d{4}/)
-        );
-        return yearDescB - yearDescA;
-
-      case "director":
-        const directorA = a
-          .querySelector(".movie-brief p:nth-child(2)")
-          .textContent.toLowerCase();
-        const directorB = b
-          .querySelector(".movie-brief p:nth-child(2)")
-          .textContent.toLowerCase();
-        return directorA.localeCompare(directorB);
-
-      default:
-        return 0;
-    }
-  });
-
-  // Remove all current cards
-  movieCards.forEach((card) => container.removeChild(card));
-
-  // Add sorted cards with animation
-  movieCards.forEach((card, index) => {
-    card.style.animation = "fadeIn 0.5s ease forwards";
-    card.style.animationDelay = `${index * 0.1}s`;
-    container.appendChild(card);
-  });
+  const sortedMovies = [...movies].sort(sortOptions[criteria] || (() => 0));
+  renderMovies(sortedMovies);
 }
 
 // Add event listener for sort dropdown
-document.addEventListener("DOMContentLoaded", () => {
-  const sortSelect = document.querySelector(".sort-select");
+const sortSelect = document.querySelector(".sort-select");
 
-  if (sortSelect) {
-    // Automatic sorting when dropdown value changes
-    sortSelect.addEventListener("change", () => {
-      const selectedValue = sortSelect.value;
-      sortMovies(selectedValue);
-    });
-  }
-});
-
-// Add animation to CSS (this part copy from Code pen)
-const style = document.createElement("style");
-style.textContent = `
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-`;
-document.head.appendChild(style);
+if (sortSelect) {
+  // Automatic sorting when dropdown value changes
+  sortSelect.addEventListener("change", () => {
+    const selectedValue = sortSelect.value;
+    sortMovies(selectedValue);
+  });
+}
 
 // Initialize the page
 initializeMovies();
 
+// Function to search movies by title
 function searchMoviesByTitle(keyword) {
   // Convert keyword to lowercase for better search
   const searchTerm = keyword.toLowerCase();
@@ -371,6 +293,7 @@ function searchMoviesByTitle(keyword) {
   return filteredMovies;
 }
 
+// Function to render movies in the container
 function renderMovies(moviesToRender) {
   const container = document.querySelector(".container");
   container.innerHTML = ""; // Clear current movies
@@ -412,7 +335,7 @@ function renderMovies(moviesToRender) {
   setupReadMoreListeners();
 }
 
-// Example usage of search function
+// Initialize search functionality
 const searchInput = document.querySelector("#searchInput");
 searchInput.addEventListener("input", (e) => {
   const keyword = e.target.value;
@@ -421,7 +344,7 @@ searchInput.addEventListener("input", (e) => {
   renderMovies(searchResults);
 });
 
-// Add some CSS for no results message
+// Add styles for no results message
 const noResultsStyle = document.createElement("style");
 noResultsStyle.textContent = `
     .no-results {
