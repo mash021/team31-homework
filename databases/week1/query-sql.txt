@@ -1,0 +1,70 @@
+select count(*) from task;
++----------+
+| count(*) |
++----------+
+|       35 |
++----------+
+
+SELECT COUNT(*) AS tasks_without_due_date
+    -> FROM task
+    -> WHERE due_date IS NULL;
++------------------------+
+| tasks_without_due_date |
++------------------------+
+|                      8 |
++------------------------+
+
+
+SELECT * FROM task WHERE status_id = 3;
+
+
+SELECT count(*) FROM task WHERE status_id = 3;
++----------+
+| count(*) |
++----------+
+|       12 |
++----------+
+
+SELECT task.*
+    -> FROM task
+    -> JOIN status ON task.status_id = status.id
+    -> WHERE status.name = 'Done';
+
+
+
+ SELECT *
+    -> FROM task
+    -> WHERE status_id != 3;   
+
+
+  SELECT task.*
+    -> FROM task
+    -> JOIN status ON task.status_id = status.id
+    -> WHERE status.name != 'Done';
+
+SELECT *
+    -> FROM task
+    -> ORDER BY created DESC;
+
+SELECT *
+    -> FROM task
+    -> ORDER BY created DESC
+    -> LIMIT 1;
+
+
+ SELECT title, due_date
+    -> FROM task
+
+
+SELECT task.title, status.name AS status
+    -> FROM task
+    -> JOIN status ON task.status_id = status.id;
+
+
+
+
+ SELECT status.name AS status_name, COUNT(task.id) AS task_count
+    -> FROM status
+    -> LEFT JOIN task ON status.id = task.status_id
+    -> GROUP BY status.name
+    -> ORDER BY task_count DESC;
