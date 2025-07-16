@@ -1,6 +1,10 @@
 Carrot
 Broccoli
+Kale
 Lettuce
+=======
+Kale
+>>>>>>> d4e3a5e1a882def0455866b2c348b32fd3c99e5d
 Tomato
 Cucumber
 Pepper
