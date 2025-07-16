@@ -1,5 +1,7 @@
 Carrot
 Broccoli
-Spinach
+Lettuce
 Tomato
 Cucumber
+Pepper
+Onion
