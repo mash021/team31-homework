@@ -1,0 +1,22 @@
+{
+  "name": "nodejs-week3-warmup",
+  "version": "1.0.0",
+  "description": "Warmup task for HackYourFuture Node.js Week 3 - Demonstrating and fixing SQL injection vulnerability",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "author": "Ali Sharifi",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.4",
+    "knex": "^3.1.0",
+    "mysql2": "^3.9.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
+}
