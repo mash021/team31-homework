@@ -1,0 +1,92 @@
+# Part 1: Branching, Merging, and Pull Requests
+cd team31-homework/git/week2
+# Create and switch to git-week2 branch
+git checkout -b git-week2
+# Create veggies.txt with 5 veggies, add and commit
+echo -e "Carrot\nBroccoli\nSpinach\nTomato\nCucumber" > veggies.txt
+git add veggies.txt
+git commit -m "Add veggies.txt with 5 veggies"
+# Push git-week2 to GitHub
+git push origin git-week2
+# Create and switch to feature/veggies branch
+git checkout -b feature/veggies
+# Edit 3rd veggie, add 2 more, and commit
+sed -i '' '3s/.*/Lettuce/' veggies.txt
+echo "Pepper" >> veggies.txt
+echo "Onion" >> veggies.txt
+git add veggies.txt
+git commit -m "Edit 3rd veggie and add 2 more veggies"
+# Switch to git-week2 and edit 3rd veggie to Kale, commit, and push
+git checkout git-week2
+sed -i '' '3s/.*/Kale/' veggies.txt
+git add veggies.txt
+git commit -m "Change 3rd veggie to Kale on git-week2 branch"
+git push origin git-week2
+# Switch back to feature/veggies
+git checkout feature/veggies
+# Merge latest git-week2 into feature/veggies
+git pull --no-rebase origin git-week2
+# Resolve conflict: set 3rd veggie to Kale, remove conflict markers, and commit
+sed -i '' '3s/.*/Kale/' veggies.txt
+sed -i '' '/<<<<<<<\|=======\|>>>>>>>/d' veggies.txt
+git add veggies.txt
+git commit -m "Resolve merge conflict: set 3rd veggie to Kale"
+# Push feature/veggies to GitHub
+git push origin feature/veggies
+
+# Part 2: Git Reset and Revert Playground
+cd ~/ && mkdir reset_playground && cd reset_playground && git init
+# Add 5 countries, one per commit
+echo "Denmark" > countries.txt
+git add countries.txt
+git commit -m "Add Denmark to countries.txt"
+echo "Sweden" >> countries.txt
+git add countries.txt
+git commit -m "Add Sweden to countries.txt"
+echo "Norway" >> countries.txt
+git add countries.txt
+git commit -m "Add Norway to countries.txt"
+echo "Finland" >> countries.txt
+git add countries.txt
+git commit -m "Add Finland to countries.txt"
+echo "Iceland" >> countries.txt
+git add countries.txt
+git commit -m "Add Iceland to countries.txt"
+# Create and switch to feature/more_countries
+git checkout -b feature/more_countries
+# Add more_countries.txt with 2 countries and commit
+echo -e "Germany\nFrance" > more_countries.txt
+git add more_countries.txt
+git commit -m "Add more_countries.txt with Germany and France"
+# Switch back to master
+git checkout master
+# Cherry-pick the commit that added more_countries.txt
+git cherry-pick d67ab2a
+# Add Estonia and Latvia, each as a separate commit
+echo "Estonia" >> countries.txt
+git add countries.txt
+git commit -m "Add Estonia to countries.txt"
+echo "Latvia" >> countries.txt
+git add countries.txt
+git commit -m "Add Latvia to countries.txt"
+# Soft reset to before the latest commit
+git reset --soft ee6b6fe
+git commit -m "Re-commit after soft reset (Latvia added)"
+# Revert the cherry-picked commit (more_countries.txt)
+git revert b6ddbd1 --no-edit
+# Commit staged deletion if needed
+git commit -m "Commit deleted more_countries.txt after revert"
+# Mixed reset to before the last two commits
+git reset --mixed ee6b6fe
+git add countries.txt
+git rm more_countries.txt
+git commit -m "Re-commit after mixed reset (countries.txt modified, more_countries.txt deleted)"
+# Checkout the first commit
+git checkout 0030278
+# Return to master
+git checkout master
+# Revert the commit where Norway was added
+git revert ec9b613 --no-edit
+# If conflict, remove Norway and conflict markers, add, and continue
+git add countries.txt
+git revert --continue --no-edit
